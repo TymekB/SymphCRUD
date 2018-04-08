@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h2 class="mt-4">Products list</h2>
+    <hr>
+
+    <table class="table table-bordered table-">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Price</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Status</th>
+            <th scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th scope="row">1</th>
+            <td>Keyboard A4 Tech KV-300H</td>
+            <td>29.99$</td>
+            <td>19</td>
+            <td><span class="badge badge-success">Available</span></td>
+            <td><a href="#" class="btn btn-outline-secondary btn-sm">Edit</a> <a href="#" class="btn btn-outline-danger btn-sm">Delete</a></td>
+        </tr>
+        <tr>
+            <th scope="row">3</th>
+            <td>Intel Core i5-8600K, 3.60GHz</td>
+            <td>289$</td>
+            <td>20</td>
+            <td><span class="badge badge-success">Available</span></td>
+            <td><a href="#" class="btn btn-outline-secondary btn-sm">Edit</a> <a href="#" class="btn btn-outline-danger btn-sm">Delete</a></td>
+        </tr>
+        <tr>
+            <th scope="row">2</th>
+            <td>Nvidia GTX 970</td>
+            <td>599$</td>
+            <td>5</td>
+            <td><span class="badge badge-danger">Unavailable</span></td>
+            <td><a href="#" class="btn btn-outline-secondary btn-sm">Edit</a> <a href="#" class="btn btn-outline-danger btn-sm">Delete</a></td>
+        </tr>
+        </tbody>
+    </table>
+
+
+{% endblock %}

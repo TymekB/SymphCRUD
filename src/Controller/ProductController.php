@@ -13,7 +13,7 @@ class ProductController extends Controller
      */
     public function list()
     {
-        return new Response("Products list");
+        return $this->render('Product/list.html.twig');
     }
 
     /**
@@ -21,7 +21,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return new Response("Create product form");
+        return $this->render('Product/create.html.twig');
     }
 
     /**
@@ -29,9 +29,9 @@ class ProductController extends Controller
      * @param $id
      * @return Response
      */
-    public function update ($id)
+    public function update($id)
     {
-        return new Response("Edit product {$id}");
+        return $this->render('Product/edit.html.twig');
     }
 
     /**
