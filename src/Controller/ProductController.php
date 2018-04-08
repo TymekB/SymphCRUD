@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Product;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -13,11 +14,14 @@ class ProductController extends Controller
      */
     public function list()
     {
-        return $this->render('Product/list.html.twig');
+        $doctrineManager = $this->getDoctrine()->getRepository(Product::class);
+        $products = $doctrineManager->findAll();
+
+        return $this->render('Product/list.html.twig', ['products' => $products]);
     }
 
     /**
-     * @Route("/product/create", name="product_create")
+     * @Route("/product/create", name="product_create")http://localhost:8000/product/list#
      */
     public function create()
     {
