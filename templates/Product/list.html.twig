@@ -23,7 +23,7 @@
                 <td>{{ product.name }}</td>
                 <td>{{ product.price }}$</td>
                 <td>{{ product.quantity }}</td>
-                <td><span class="badge badge-{{ product.status ? 'success' : 'badge-danger' }}">{{ product.status }}</span></td>
+                <td><span class="badge badge-{{ product.status == 'available' ? 'success' : 'danger' }}">{{ product.status }}</span></td>
                 <td><a href="#" class="btn btn-outline-secondary btn-sm">Edit</a> <a href="#" class="btn btn-outline-danger btn-sm">Delete</a></td>
             </tr>
         {% endfor %}
