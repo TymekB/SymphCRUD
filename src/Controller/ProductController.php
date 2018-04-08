@@ -59,11 +59,33 @@ class ProductController extends Controller
     /**
      * @Route("/product/update/{id}", name="product_update")
      * @param $id
+     * @param Request $request
      * @return Response
      */
-    public function update($id)
+    public function update($id, Request $request)
     {
-        return $this->render('Product/edit.html.twig');
+        $entityManager = $this->getDoctrine()->getManager();
+        $product = $entityManager->getRepository(Product::class)->findOneBy(['id' => $id]);
+
+        $form = $this->createFormBuilder($product)
+            ->add('name', TextType::class, ['attr' => ['class' => 'form-control'], 'error_bubbling' => true])
+            ->add('price', NumberType::class, ['attr' => ['class' => 'form-control'], 'error_bubbling' => true])
+            ->add('quantity', NumberType::class, ['attr' => ['class' => 'form-control'], 'error_bubbling' => true])
+            ->add('status', ChoiceType::class, ['choices' => ['Available' => 'available', 'Unavailable' => "unavailable"], 'attr' => ['class' => 'form-control'], 'error_bubbling' => true])
+            ->add('update', SubmitType::class, ['label' => 'Update', 'attr' => ['class' => 'btn btn-success']])
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+
+            $entityManager->persist($form->getData());
+            $entityManager->flush();
+
+            return $this->redirectToRoute("product_list");
+        }
+
+        return $this->render('Product/edit.html.twig', ['form' => $form->createView()]);
     }
 
     /**
