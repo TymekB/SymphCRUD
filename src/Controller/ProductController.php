@@ -67,6 +67,12 @@ class ProductController extends Controller
         $entityManager = $this->getDoctrine()->getManager();
         $product = $entityManager->getRepository(Product::class)->findOneBy(['id' => $id]);
 
+        if (!$product) {
+            throw $this->createNotFoundException(
+                'No product found for id '.$id
+            );
+        }
+
         $form = $this->createFormBuilder($product)
             ->add('name', TextType::class, ['attr' => ['class' => 'form-control'], 'error_bubbling' => true])
             ->add('price', NumberType::class, ['attr' => ['class' => 'form-control'], 'error_bubbling' => true])
@@ -95,6 +101,19 @@ class ProductController extends Controller
      */
     public function delete($id)
     {
-        return new Response("Delete product {$id}");
+        $product = $this->getDoctrine()->getRepository(Product::class)->findOneBy(['id' => $id]);
+
+        if (!$product) {
+            throw $this->createNotFoundException(
+                'No product found for id '.$id
+            );
+        }
+
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $entityManager->remove($product);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('product_list');
     }
 }
