@@ -1,0 +1,39 @@
+App\Entity\Product:
+    properties:
+        name:
+            - NotBlank:
+                message: "Name cannot be empty!"
+            - Length:
+                min: 6
+                max: 255
+                minMessage: 'Name must be at least {{ limit }} characters long!'
+                maxMessage: 'Name cannot be greater than {{ limit }} characters long!'
+            - Regex:
+                pattern: '/[a-zA-Z0-9]+/'
+                message: 'Name is not valid!'
+
+        price:
+            - NotBlank:
+                message: "Price cannot be empty!"
+            - Range:
+                min: 1
+                max: 999999
+                minMessage: 'Price must be at least {{ limit }}$!'
+                maxMessage: 'Name cannot be greater than {{ limit }}$!'
+            - Regex:
+                pattern: '/\d+/'
+                message: 'Price is not valid!'
+
+        quantity:
+            - NotBlank:
+                message: "Quantity cannot be empty!"
+            - Range:
+                min: 0
+                max: 9999
+                minMessage: 'Quantity must be at least {{ limit }}'
+                maxMessage: 'Quantity cannot be greater than {{ limit }}'
+
+        status:
+            - Choice:
+                choices: ['available', 'unavailable']
+                message: 'Choose a valid option'

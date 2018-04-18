@@ -3,10 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Product;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use App\Form\ProductType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -34,13 +31,7 @@ class ProductController extends Controller
     {
         $product = new Product();
 
-        $form = $this->createFormBuilder($product)
-            ->add('name', TextType::class, ['attr' => ['class' => 'form-control'], 'error_bubbling' => true])
-            ->add('price', NumberType::class, ['attr' => ['class' => 'form-control'], 'error_bubbling' => true])
-            ->add('quantity', NumberType::class, ['attr' => ['class' => 'form-control'], 'error_bubbling' => true])
-            ->add('status', ChoiceType::class, ['choices' => ['Available' => 'available', 'Unavailable' => "unavailable"], 'attr' => ['class' => 'form-control'], 'error_bubbling' => true])
-            ->add('create', SubmitType::class, ['label' => 'Create', 'attr' => ['class' => 'btn btn-primary']])
-            ->getForm();
+        $form = $this->createForm(ProductType::class, $product);
 
         $form->handleRequest($request);
 
@@ -73,13 +64,7 @@ class ProductController extends Controller
             );
         }
 
-        $form = $this->createFormBuilder($product)
-            ->add('name', TextType::class, ['attr' => ['class' => 'form-control'], 'error_bubbling' => true])
-            ->add('price', NumberType::class, ['attr' => ['class' => 'form-control'], 'error_bubbling' => true])
-            ->add('quantity', NumberType::class, ['attr' => ['class' => 'form-control'], 'error_bubbling' => true])
-            ->add('status', ChoiceType::class, ['choices' => ['Available' => 'available', 'Unavailable' => "unavailable"], 'attr' => ['class' => 'form-control'], 'error_bubbling' => true])
-            ->add('update', SubmitType::class, ['label' => 'Update', 'attr' => ['class' => 'btn btn-success']])
-            ->getForm();
+        $form = $this->createForm(ProductType::class, $product);
 
         $form->handleRequest($request);
 
