@@ -16,8 +16,7 @@ class ProductController extends Controller
      */
     public function list()
     {
-        $doctrineManager = $this->getDoctrine()->getRepository(Product::class);
-        $products = $doctrineManager->findAll();
+        $products = $this->getUser()->getProducts();
 
         return $this->render('Product/list.html.twig', ['products' => $products]);
     }
@@ -37,8 +36,11 @@ class ProductController extends Controller
 
         if($form->isSubmitted() && $form->isValid()) {
 
+            $product = $form->getData();
+            $product->setUser($this->getUser());
+
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($form->getData());
+            $entityManager->persist($product);
             $entityManager->flush();
 
             return $this->redirectToRoute("product_list");
@@ -58,7 +60,7 @@ class ProductController extends Controller
         $entityManager = $this->getDoctrine()->getManager();
         $product = $entityManager->getRepository(Product::class)->findOneBy(['id' => $id]);
 
-        if (!$product) {
+        if (!$product || $this->getUser()->getId() != $id) {
             throw $this->createNotFoundException(
                 'No product found for id '.$id
             );
